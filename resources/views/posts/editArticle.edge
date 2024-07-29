@@ -1,0 +1,30 @@
+@layout('layout/main')
+@set('title', "Submit Your News")
+@section('content')
+<h3>
+    Update article
+</h3>
+<form action="{{route('post.update',[post.slug])}}/?_method=PATCH" method='post'>
+    {{ csrfField() }}
+    <div class="container px-4 py-5" id="icon-grid">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="title" id="floatingInput" placeholder="Title of your article"
+                value="{{post.title}}">
+            <label for="floatingInput">Title of your article</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <textarea type="text" class="form-control" name="content" rows="5" cols="15" id="floatingPassword"
+                placeholder="content">{{post.content}}
+                    </textarea>
+            <label for="floatingPassword">Content</label>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" name="image" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+        </div>
+        <button type="submit">Update~Artical</button>
+    </div>
+</form>
+@end

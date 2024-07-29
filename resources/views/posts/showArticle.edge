@@ -1,0 +1,20 @@
+@layout('layout/main')
+@set('title', 'Show Article')
+@section('content')
+<div class="container px-4 py-5" id="icon-grid" align="center">
+
+    {{article.userId}}
+    <h3>
+        {{article.title}}
+    </h3>
+    <hr>
+    @if(article.image)
+    <img src="{{article.image}}">
+    <hr>
+    @end
+    <h5>
+        {{article.content}}
+    </h5>
+    <hr>
+</div>
+@end

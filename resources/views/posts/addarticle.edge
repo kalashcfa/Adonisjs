@@ -1,0 +1,39 @@
+@layout('layout/main')
+@set('title', "Submit Your News")
+
+@section('content')
+
+<form action="{{route('post.store')}}" method="post">
+
+    {{ csrfField() }}
+
+    <div class="container px-4 py-5" id="icon-grid">
+        <input type="hidden" value="{{auth.user.id}}" name="userId">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="title" id="floatingInput" placeholder="Title of your article">
+            <label for="floatingInput">Title of your article</label>
+            @if(flashMessages.has('errors.title'))
+            <p> {{ flashMessages.get('errors.title') }} </p>
+            @end
+        </div>
+
+        <div class="form-floating mb-3">
+            <textarea type="text" class="form-control" name="content" rows="5" id="floatingPassword"
+                placeholder="content"></textarea>
+            <label for="floatingPassword">Content</label>
+            @if(flashMessages.has('errors.content'))
+            <p> {{ flashMessages.get('errors.content') }} </p>
+            @end
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" name="file" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            @if(flashMessages.has('errors.file'))
+            <p> {{ flashMessages.get('errors.file') }} </p>
+            @end
+        </div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+@end

@@ -1,0 +1,48 @@
+@layout('layout/main')
+@set('title', 'NEWS')
+@section('content')
+<div class="container px-4 py-5" id="icon-grid">
+    @each(post in posts)
+    {{csrfField()}}
+    <div class="row">
+        <div class="col-sm-12 mb-5">
+            <input type="hidden" name="user_id" value="{{post.user_id}}">
+            <div class="card">
+                <div class="card-body bg-dark text-white">
+                    <img src="{{post.image}}" alt="Not Found">
+                    <h4 class="card-title">
+                        {{post.title}}
+                    </h4>
+                    <p class="card-text">{{
+                        truncate(post.content , 300,{ completeWords: false }
+                        )}}
+                        <a href="{{route('post.show',[post.slug])}}">Read more</a>
+                    </p>
+                    <div class="d-flex ">
+                        <form action="{{route('post.edit',[post.slug])}}" method="get">
+                            <button type="submit" class="btn btn-primary mr-3 border">Edit</a>
+                        </form>
+
+                        <form action="{{route('post.destroy',[post.slug])}}/?_method=DELETE" method="post">
+                            {{ csrfField() }}
+                            <input type="hidden" value="{{post.user_id}}" id="userId" name="userId">
+                            <button type="submit" class="btn btn-primary border">Delete</button>
+                        </form>
+                    </div>
+                    Blog by: {{post.user_id}}
+                    <input type="hidden" value="{{post.user_id}}" id="userId" name="userId">
+                </div>
+            </div>
+        </div>
+        {{-- session:{{ inspect(session.all()) }} --}}
+    </div>
+    @end
+    <div>
+        @each(post in posts.getUrlsForRange(1 , post))
+        <a href="{{ post.url }}">
+            {{ post.page }}
+        </a>
+        @endeach
+    </div>
+</div>
+@end
